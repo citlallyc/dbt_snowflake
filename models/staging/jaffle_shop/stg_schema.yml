@@ -30,12 +30,20 @@ models:
           - unique
           - not_null
       - name: status
+        description: "{{ doc('order_status') }}"
         tests:
           - accepted_values:
               values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
       - name: customer_id
+        description: Foreign key to stg_customers.customer_id
         tests:
           - not_null
           - relationships:
               to: ref('stg_customers')
               field: customer_id
+  - name: stg_payments
+    description: This model cleans up payment data
+    columns:
+      - name: payment_id
+      - name: status
+        description: "{{ doc('payment_status') }}"
